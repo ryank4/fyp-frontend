@@ -1,0 +1,10 @@
+.select {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    width: 90%;
+    max-width: 50rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    border-radius: 1ex;
+  }
+
