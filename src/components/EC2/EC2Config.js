@@ -5,6 +5,7 @@ import classes from './EC2Config.module.css'
 import { Fragment } from "react";
 import ConfigItem from "./ConfigItem";
 import useHttp from "../../hooks/use-http";
+import InstanceTypeInfo from "./InstanceTypeInfo";
 
 
 const EC2Config = props => {
@@ -65,6 +66,7 @@ const EC2Config = props => {
                 <form onSubmit={onAddEC2Handler}>
                     <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/attributes/ec2/os' />
                     <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/attributes/ec2/instancetype' />
+                    <InstanceTypeInfo instanceType={instanceType} />
                     <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/attributes/ec2/regions' />
                     <h2>Price: {isLoading ? '...' : '$' + price.price}</h2>
                     <Button type="submit">Add EC2</Button>
