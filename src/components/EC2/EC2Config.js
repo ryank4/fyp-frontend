@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import classes from './EC2Config.module.css'
@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import ConfigItem from "./ConfigItem";
 import useHttp from "../../hooks/use-http";
 import InstanceTypeInfo from "./InstanceTypeInfo";
+import CostModelContext from "../../store/cost-model-context";
 
 
 const EC2Config = props => {
@@ -15,6 +16,9 @@ const EC2Config = props => {
     const [os, setOS] = useState('Linux');
     const [instanceType, setInstanceType] = useState('a1.2xlarge');
     const [price, setPrice] = useState(0.00);
+
+    const costModeltCtx = useContext(CostModelContext);
+
 
     const regionChangeHandler = (event) => {
         setRegion(event.target.value);
@@ -60,16 +64,32 @@ const EC2Config = props => {
         props.onAddEC2(region, os, instanceType, price.price)
     };
 
+
+
+    const addServiceHandler = () => {
+        costModeltCtx.addService({
+            id: Math.random().toString(),
+            service: 'EC2',
+            region: region,
+            instanceType: instanceType,
+            price: price.price
+        });
+
+        console.log(costModeltCtx.services);
+    };
+
+    const displayPrice = price.price === 0 ? 'Not Available' : '$' + price.price?.toFixed(2)
+       
     return (
         <Fragment>
             <Card className={classes.input}>
-                <form onSubmit={onAddEC2Handler}>
+                <form >
                     <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/attributes/ec2/os' />
                     <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/attributes/ec2/instancetype' />
                     <InstanceTypeInfo instanceType={instanceType} />
                     <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/attributes/ec2/regions' />
-                    <h2>Price: {isLoading ? '...' : '$' + price.price}</h2>
-                    <Button type="submit">Add EC2</Button>
+                    <h2>Price: {isLoading ? '...' : displayPrice}</h2>
+                    <Button type="button" onClick={addServiceHandler}>Add EC2</Button>
                 </form>
             </Card>
         </Fragment>
