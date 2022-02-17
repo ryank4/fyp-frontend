@@ -3,6 +3,7 @@ import CostModelContext from "../../store/cost-model-context";
 import Modal from "../UI/Modal";
 import SaveCostModel from "./SaveCostModel";
 import classes from "../UI/Modal.module.css";
+import viewClasses from "./CostModelView.module.css";
 import Card from "../UI/Card";
 import CostModelName from "./CostModelName";
 import Button from "../UI/Button";
@@ -19,6 +20,10 @@ const CostModelView = props => {
     let content = [];
     const costModel = [];
 
+    const costModelRemoveHandler = id => {
+        costModelCtx.removeService(id)
+    };
+
     for (const key in services) {
         content.push(<h4>{services[key].service}</h4>)
         for (const k in services[key]) {
@@ -27,12 +32,12 @@ const CostModelView = props => {
             </ul> : '')
             costModel.push({ index: k, value: services[key][k] });
         }
+        content.push(<button className={viewClasses.button} onClick={costModelRemoveHandler.bind(null, services[key].id)}>Remove</button>)
     }
-
     costModel.push({ index: 'name', value: costModelCtx.name })
-
-    content.push(<h4>Total Monthly Cost: ${totalCost}</h4>)
+    content.push(<h4>Total Monthly Cost: ${totalCost.toFixed(2)}</h4>)
     console.log(costModel);
+
 
     const saveHandler = () => {
         setIsSaving(true);
@@ -50,9 +55,11 @@ const CostModelView = props => {
         console.log(saveResponse);
     };
 
+    const disableSave = totalCost === 0
+
     const modalActions = <div>
         <Button onClick={props.onClose}>Close</Button>
-        <Button onClick={saveHandler}>Save</Button>
+        <Button disabled={disableSave} onClick={saveHandler}>Save</Button>
     </div>
 
     const costModelContent = (

@@ -7,6 +7,7 @@ const CostModelContext = React.createContext({
     addService: () => {},
     removeService: () => {},
     addName: () => {},
+    loadCostModel: () => {},
     clearCostModel: () => {}
 });
 

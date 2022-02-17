@@ -13,7 +13,7 @@ const costModelReducer = (state, action) => {
     if (action.type === 'ADD_SERVICE') {
         // concat returns new array - better than editing old array in memory
         // const updatedItems = state.items.concat(action.item);
-        const updatedTotalCost = state.totalCost + action.service.price;
+        const updatedTotalCost = +state.totalCost + action.service.price;
         const existingCostModelServiceIndex = state.services.findIndex(service => service.id === action.service.id);
         const existingCostModelService = state.services[existingCostModelServiceIndex];
 
@@ -40,17 +40,19 @@ const costModelReducer = (state, action) => {
     if (action.type === 'REMOVE_SERVICE'){
         const existingServieIndex = state.services.findIndex(service => service.id === action.id); 
         const existingService = state.services[existingServieIndex];
-        const updatedTotalcost = state.totalCost - existingService.price;
+        const updatedTotalcost = +state.totalCost - existingService.price;
         let updatedServices;
 
-        if(existingService.amount === 1){
-            updatedServices = state.services.filter(service => service.id !== action.id);
-        }
-        else{
-            const updatedService = { ...existingService, amount: existingService.amount - 1}
-            updatedServices = [...state.services];
-            updatedServices[existingServieIndex] = updatedService;
-        }
+        // if(existingService.amount === 1){
+        //     updatedServices = state.services.filter(service => service.id !== action.id);
+        // }
+        // else{
+        //     const updatedService = { ...existingService, amount: existingService.amount - 1}
+        //     updatedServices = [...state.services];
+        //     updatedServices[existingServieIndex] = updatedService;
+        // }
+        
+        updatedServices = state.services.filter(service => service.id !== action.id);
 
         return {
             services: updatedServices,
@@ -70,6 +72,25 @@ const costModelReducer = (state, action) => {
         };
     }
 
+    if (action.type === 'LOAD') {
+        // concat returns new array - better than editing old array in memory
+        // const updatedItems = state.items.concat(action.item);
+        const updatedName = state.name + action.costModel.name
+        const updatedTotalCost = state.totalCost + action.costModel.totalCost;
+        console.log(action.costModel.serviceDetails);
+        let data = [];
+            for (const key in action.costModel.serviceDetails) {
+                data.push(action.costModel.serviceDetails[key]);
+            }
+        const updatedServices = [...data];
+
+        return {
+            name: updatedName,
+            services: updatedServices,
+            totalCost: updatedTotalCost
+        };
+    }
+
     return defaultCostModelState;
 }
 
@@ -83,11 +104,15 @@ const CostModelProvider = props => {
     };
 
     const removeServiceHandler = (id) => {
-        dispatchCostModelAction({ type: 'REMOVE_ITEM', id: id });
+        dispatchCostModelAction({ type: 'REMOVE_SERVICE', id: id });
     };
 
     const addNameHandler = (name) => {
         dispatchCostModelAction({ type: 'ADD_NAME', name: name });
+    };
+
+    const loadCostModelHandler = (costModel) => {
+        dispatchCostModelAction({ type: 'LOAD', costModel: costModel });
     };
 
     const clearCostModelHandler = () => {
@@ -101,6 +126,7 @@ const CostModelProvider = props => {
         addService: addServiceHandler,
         removeService: removeServiceHandler,
         addName: addNameHandler,
+        loadCostModel: loadCostModelHandler,
         clearCostModel: clearCostModelHandler
     };
 
