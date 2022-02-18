@@ -33,9 +33,6 @@ const HeaderButton = props => {
 
     return (
         <button className={btnClasses} onClick={props.onClick}>
-            {/* <span className={classes.icon}>
-                <CartIcon />
-            </span> */}
             <span>Total:</span>
             <span className={classes.badge}>
                 {totalCost.toFixed(2)}

@@ -2,6 +2,7 @@ import React, { useState, useContext, Fragment } from 'react';
 import CostModel from './components/cost-model/CostModel';
 import CostModelView from './components/cost-model/CostModelView';
 import LoadCostModel from './components/cost-model/LoadCostModel';
+import LoadedCostModels from './components/cost-model/LoadedCostModels';
 import SaveCostModel from './components/cost-model/SaveCostModel';
 import EC2Config from './components/EC2/EC2Config';
 import EC2List from './components/EC2/EC2List';
@@ -13,7 +14,6 @@ import CostModelContext from './store/cost-model-context';
 import CostModelProvider from './store/CostModelProvider';
 
 function App() {
-  const [ec2List, setEc2List] = useState([]);
   const costModelCtx = useContext(CostModelContext);
   const { services } = costModelCtx;
 
@@ -30,22 +30,33 @@ function App() {
   };
   
 
-  const [showCostModel, setShowCostModel] = useState(false);
+  const [showCostModelView, setShowCostModelView] = useState(false);
+  const [loadCostModels, setLoadedCostModels] = useState(false);
 
-  const showCostModelHandler = () => {
-    setShowCostModel(true);
+  const showCostModelViewHandler = () => {
+    setShowCostModelView(true);
   };
 
-  const hideCostModelHandler = () => {
-    setShowCostModel(false);
+  const hideCostModelViewHandler = () => {
+    setShowCostModelView(false);
+  };
+
+  const showLoadedCostModelHandler = () => {
+    setLoadedCostModels(true);
+  };
+
+  const hideLoadedCostModelHandler = () => {
+    setLoadedCostModels(false);
   };
 
   console.log(services);
+  console.log(loadCostModels);
 
   return (
     <CostModelProvider>
-      {showCostModel && <CostModelView onClose={hideCostModelHandler} />}
-      <Header onShowCostModel={showCostModelHandler} />
+      {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
+      {loadCostModels && <LoadedCostModels onClose={hideLoadedCostModelHandler} />}
+      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler}/>
         <main>
           <EC2Config onAddEC2={addEC2Handler} />
         </main>

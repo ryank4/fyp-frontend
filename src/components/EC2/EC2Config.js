@@ -12,9 +12,12 @@ import CostModelContext from "../../store/cost-model-context";
 const EC2Config = props => {
 
     //first argument is current state snapshot, second is function to call to change state 
-    const [region, setRegion] = useState('us-east-2');
+    const [region, setRegion] = useState('US East (Ohio)');
     const [os, setOS] = useState('Linux');
     const [instanceType, setInstanceType] = useState('a1.2xlarge');
+    const [dataIntra, setDataIntra] = useState(0);
+    const [dataOutTo, setDataOutTo] = useState('internet');
+    const [dataOut, setDataOut] = useState(0);
     const [price, setPrice] = useState(0.00);
 
     const costModeltCtx = useContext(CostModelContext);
@@ -32,31 +35,48 @@ const EC2Config = props => {
         setInstanceType(event.target.value);
     }
 
+    const dataIntraChangeHandler = (event) => {
+        setTimeout(() => {
+            setDataIntra(event.target.value);
+        }, 1000);
+    }
+
+    const dataOutChangeHandler = (event) => {
+        setTimeout(() => {
+            setDataOut(event.target.value);
+        }, 1000);
+    }
+
+    const dataOutToChangeHandler = (event) => {
+        setDataOutTo(event.target.value);
+    }
+
     const [data, setData] = useState([]);
 
     // array destructuring; using fetchTasks as alias for sendRequest function
     const { isLoading, error, sendRequest: sendPriceRequest } = useHttp();
 
-    
+
     useEffect(() => {
         const ec2Data = {
-            os, instance_type: instanceType, region
+            os, instance_type: instanceType, region, dataIntra, dataOut, dataOutTo
         }
-      
+
         sendPriceRequest({
             url: 'http://localhost:5000/pricing/ec2',
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: ec2Data
-          }, setPrice);
-          
-          return () => {
+        }, setPrice);
+
+
+        return () => {
             console.log(region, os, instanceType, price.price);
-          }
-    }, [sendPriceRequest, region, os, instanceType]);
+        }
+    }, [sendPriceRequest, region, os, instanceType, dataIntra, dataOutTo, dataOut]);
 
     const onAddEC2Handler = (event) => {
         event.preventDefault();
@@ -78,18 +98,24 @@ const EC2Config = props => {
         console.log(costModeltCtx.services);
     };
 
-    const displayPrice = price.price === 0 ? 'Not Available' : '$' + price.price?.toFixed(2)
-       
+    const displayPrice = price.price === 0 ? 'Not Available' : '$' + price.price
+    const disableButton = price.price === 0
+
     return (
         <Fragment>
             <Card className={classes.input}>
                 <form >
+                    <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/attributes/ec2/regions' />
                     <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/attributes/ec2/os' />
                     <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/attributes/ec2/instancetype' />
                     <InstanceTypeInfo instanceType={instanceType} />
-                    <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/attributes/ec2/regions' />
+                    <label>Intra-Region Data Transfer</label>
+                    <input type="number" id='intra-data-transfer' label='Intra-Region Data Transfer' onChange={dataIntraChangeHandler} />
+                    <label>Outbound Data Transfer</label>
+                    <select onChange={dataOutToChangeHandler}><option>internet</option><option>other regions</option></select>
+                    <input type="number" id='out-data-transfer' label='Outbound Data Transfer' onChange={dataOutChangeHandler} />
                     <h2>Price: {isLoading ? '...' : displayPrice}</h2>
-                    <Button type="button" onClick={addServiceHandler}>Add EC2</Button>
+                    <Button type="button" disabled={disableButton} onClick={addServiceHandler}>Add EC2</Button>
                 </form>
             </Card>
         </Fragment>
