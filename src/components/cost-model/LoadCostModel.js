@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import { Fragment } from "react/cjs/react.production.min";
 import useHttp from "../../hooks/use-http";
+import CostModelContext from "../../store/cost-model-context";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import Modal from "../UI/Modal";
@@ -9,7 +10,7 @@ const LoadCostModel = () => {
     const [costModel, setCostModel] = useState([]);
     const [show, setShow] = useState(false);
     const { isLoading, error, sendRequest: loadCostModel } = useHttp();
-
+    const costModeltCtx = useContext(CostModelContext);
     useEffect(() => {
 
     })
@@ -49,7 +50,7 @@ const LoadCostModel = () => {
     return (
         <Fragment>
             <Button onClick={onLoadHandler}>Load</Button>
-            {show && <Modal title="Cost Model" message={costModel} onConfirm={showHandler} />}
+            {show && <Modal title="Cost Model" message={costModeltCtx} onConfirm={showHandler} />}
             {error && <ErrorModal title={"Error"} message={error} onConfirm={errorHandler} />}
         </Fragment>
     );
