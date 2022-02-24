@@ -23,7 +23,7 @@ const InstanceTypeInfo = props => {
         };
 
         fetchData({
-            url: 'http://127.0.0.1:5000/attributes/ec2/instancetypeinfo',
+            url: 'http://127.0.0.1:5000/ec2/attributes/instancetypeinfo',
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

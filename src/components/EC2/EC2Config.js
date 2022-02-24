@@ -105,9 +105,9 @@ const EC2Config = props => {
         <Fragment>
             <Card className={classes.input}>
                 <form >
-                    <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/attributes/ec2/regions' />
-                    <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/attributes/ec2/os' />
-                    <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/attributes/ec2/instancetype' />
+                    <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/ec2/attributes/regions' />
+                    <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/ec2/attributes/os' />
+                    <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/ec2/attributes/instancetype' />
                     <InstanceTypeInfo instanceType={instanceType} />
                     <label>Intra-Region Data Transfer</label>
                     <input type="number" id='intra-data-transfer' label='Intra-Region Data Transfer' onChange={dataIntraChangeHandler} />
