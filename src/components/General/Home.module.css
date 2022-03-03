@@ -1,0 +1,14 @@
+.home {
+    margin-left: 22rem;
+    padding: 1rem;
+    width: 50%;
+    height: 20rem;
+}
+
+@media only screen and (max-width: 720px) {
+    .home {
+      width: 80%;
+      height: 50rem;
+      margin-left: 90px;
+    }
+  }

@@ -17,6 +17,8 @@ const S3Config = props => {
     const [requests2, setRequests2] = useState(0);
     const [dataReturned, setDataReturned] = useState(0);
     const [dataScanned, setDataScanned] = useState(0);
+    const [dataOutTo, setDataOutTo] = useState('internet');
+    const [dataOut, setDataOut] = useState(0);
     const [price, setPrice] = useState(0.00);
 
     const costModeltCtx = useContext(CostModelContext);
@@ -55,6 +57,15 @@ const S3Config = props => {
         }, 1000);
     }
 
+    const dataOutChangeHandler = (event) => {
+        setTimeout(() => {
+            setDataOut(event.target.value);
+        }, 1000);
+    }
+
+    const dataOutToChangeHandler = (event) => {
+        setDataOutTo(event.target.value);
+    }
 
     // array destructuring; using fetchTasks as alias for sendRequest function
     const { isLoading, error, sendRequest: sendPriceRequest } = useHttp();
@@ -62,7 +73,7 @@ const S3Config = props => {
 
     useEffect(() => {
         const s3Data = {
-            region, storage, requests1, requests2, dataReturned, dataScanned
+            region, storage, requests1, requests2, dataReturned, dataScanned, dataOutTo, dataOut
         }
 
         sendPriceRequest({
@@ -79,7 +90,7 @@ const S3Config = props => {
         return () => {
             console.log(s3Data, price.price);
         }
-    }, [sendPriceRequest, region, storage, requests1, requests2, dataReturned, dataScanned]);
+    }, [sendPriceRequest, region, storage, requests1, requests2, dataReturned, dataScanned, dataOutTo, dataOut]);
 
 
     const addServiceHandler = () => {
@@ -92,6 +103,8 @@ const S3Config = props => {
             requests2: requests2,
             dataReturned: dataReturned,
             dataScanned, dataScanned,
+            dataOutTo: dataOutTo,
+            dataOut: dataOut,
             price: price.price
         });
 
@@ -116,8 +129,14 @@ const S3Config = props => {
                     <input type="number" id='data-returned' label='Data returned by S3 Select' onChange={dataReturnedChangeHandler} />
                     <label>Data scanned by S3 Select</label>
                     <input type="number" id='data-scanned' label='Data scanned by S3 Select' onChange={dataScannedChangeHandler} />
+                    <label>Outbound Data Transfer</label>
+                    <select onChange={dataOutToChangeHandler}><option>internet</option><option>other regions</option></select>
+                    <div className={classes.data}>
+                        <input type="number" id='out-data-transfer' label='Outbound Data Transfer' onChange={dataOutChangeHandler} />
+                        <span>TB per month</span>
+                    </div>
                     <h2>Price: {isLoading ? '...' : displayPrice}</h2>
-                    <Button type="button" disabled={disableButton} onClick={addServiceHandler}>Add S3</Button>
+                    <Button type="button" disabled={disableButton} onClick={addServiceHandler}>Add</Button>
                 </form>
             </Card>
         </Fragment>

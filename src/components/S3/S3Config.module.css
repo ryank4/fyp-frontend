@@ -1,9 +1,9 @@
 .container {
-    margin: 2rem auto;
-    margin-top: 8rem;
+    margin-left: 22rem;
     padding: 1rem;
-    width: 90%;
-    max-width: 40rem;
+    width: 50%;
+    height: 40rem;
+    overflow: scroll;
   }
   
   .container label {
@@ -15,7 +15,7 @@
   .container input {
     font: inherit;
     display: block;
-    width: 100%;
+    width: 60%;
     border: 1px solid #ccc;
     padding: 0.15rem;
     margin-bottom: 0.5rem;
@@ -24,4 +24,26 @@
   .container input:focus {
     outline: none;
     border-color: #4f005f;
+  }
+
+  .container .data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container .data input {
+    width: 100%;
+  }
+
+  .container .data span {
+    margin-left: 1rem;
+  }
+
+  @media only screen and (max-width: 720px) {
+    .container {
+      overflow: visible;
+      width: 80%;
+      height: 50rem;
+      margin-left: 90px;
+    }
   }

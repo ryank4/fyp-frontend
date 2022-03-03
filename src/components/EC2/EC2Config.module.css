@@ -1,27 +1,49 @@
-.input {
-    margin: 2rem auto;
-    margin-top: 8rem;
+.container {
+    margin-left: 22rem;
     padding: 1rem;
-    width: 90%;
-    max-width: 40rem;
+    width: 50%;
+    height: 40rem;
+    overflow: scroll;
   }
   
-  .input label {
+  .container label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
   
-  .input input {
+  .container input {
     font: inherit;
     display: block;
-    width: 100%;
+    width: 50%;
     border: 1px solid #ccc;
     padding: 0.15rem;
     margin-bottom: 0.5rem;
   }
-  
-  .input input:focus {
+
+  .container input:focus {
     outline: none;
     border-color: #4f005f;
+  }
+
+  .container .data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container .data input {
+    width: 280px;
+  }
+
+  .container .data span {
+    margin-right: 10rem;
+  }
+
+  @media only screen and (max-width: 720px) {
+    .container {
+      overflow: visible;
+      width: 80%;
+      height: 50rem;
+      margin-left: 90px;
+    }
   }

@@ -10,6 +10,20 @@ html {
 
 body {
   margin: 0;
-  background-color: #3f3f3f;
+ /* background-color: #3f3f3f;*/
+  background-color: rgb(243, 243, 208);
+  overflow: hidden;
 }
 
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 7rem;
+}
+
+@media only screen and (max-width: 720px) {
+  body {
+    overflow: scroll;
+  }
+}

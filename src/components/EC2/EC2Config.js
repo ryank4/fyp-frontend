@@ -51,8 +51,6 @@ const EC2Config = props => {
         setDataOutTo(event.target.value);
     }
 
-    const [data, setData] = useState([]);
-
     // array destructuring; using fetchTasks as alias for sendRequest function
     const { isLoading, error, sendRequest: sendPriceRequest } = useHttp();
 
@@ -78,13 +76,6 @@ const EC2Config = props => {
         }
     }, [sendPriceRequest, region, os, instanceType, dataIntra, dataOutTo, dataOut]);
 
-    const onAddEC2Handler = (event) => {
-        event.preventDefault();
-        console.log(region, os, instanceType, price.price)
-        props.onAddEC2(region, os, instanceType, price.price)
-    };
-
-
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
@@ -92,6 +83,9 @@ const EC2Config = props => {
             service: 'EC2',
             region: region,
             instanceType: instanceType,
+            dataIntra: dataIntra,
+            dataOutTo: dataOutTo,
+            dataOut: dataOut,
             price: price.price
         });
 
@@ -103,19 +97,25 @@ const EC2Config = props => {
 
     return (
         <Fragment>
-            <Card className={classes.input}>
+            <Card className={classes.container}>
                 <form >
                     <ConfigItem id='region' label='Region' onChange={regionChangeHandler} value={region} url='http://localhost:5000/ec2/attributes/regions' />
                     <ConfigItem id='os' label='Operating System' value={os} onChange={osChangeHandler} url='http://localhost:5000/ec2/attributes/os' />
                     <ConfigItem id='instance-type' label='Instance Type' value={instanceType} onChange={instanceTypeChangeHandler} url='http://localhost:5000/ec2/attributes/instancetype' />
                     <InstanceTypeInfo instanceType={instanceType} />
                     <label>Intra-Region Data Transfer</label>
-                    <input type="number" id='intra-data-transfer' label='Intra-Region Data Transfer' onChange={dataIntraChangeHandler} />
+                    <div className={classes.data} >
+                        <input type="number" id='intra-data-transfer' label='Intra-Region Data Transfer' onChange={dataIntraChangeHandler} />
+                        <span>TB per month</span>
+                    </div>
                     <label>Outbound Data Transfer</label>
                     <select onChange={dataOutToChangeHandler}><option>internet</option><option>other regions</option></select>
-                    <input type="number" id='out-data-transfer' label='Outbound Data Transfer' onChange={dataOutChangeHandler} />
+                    <div className={classes.data} >              
+                        <input type="number" id='out-data-transfer' label='Outbound Data Transfer' onChange={dataOutChangeHandler} />
+                        <span>TB per month</span>
+                    </div>
                     <h2>Price: {isLoading ? '...' : displayPrice}</h2>
-                    <Button type="button" disabled={disableButton} onClick={addServiceHandler}>Add EC2</Button>
+                    <Button type="button" disabled={disableButton} onClick={addServiceHandler}>Add</Button>
                 </form>
             </Card>
         </Fragment>

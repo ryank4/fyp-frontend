@@ -38,17 +38,15 @@ const InstanceTypeInfo = props => {
     console.log(data.map((d) => d.index + ":" + d.value));
 
     return (
-        <Card className={classes.info}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridGap: 20 }}>
-                {!isLoading ?
-                    data.map((d) => {
-                        return <div key={d.index}>{d.index + ":" + d.value}</div>
-                    })
-                    : <p>Loading...</p>
-                }
-                {error && <p>{error}</p>}
-            </div>
-        </Card>
+        <div className={classes.container}>
+            {!isLoading ?
+                data.map((d) => {
+                    return <span className={classes.info} key={d.index}><label>{d.index}</label>{d.value}</span>
+                })
+                : <p>Loading...</p>
+            }
+            {error && <p>{error}</p>}
+        </div>
     )
 };
 

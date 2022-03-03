@@ -1,34 +1,20 @@
-import React, { useState, useContext, Fragment } from 'react';
-import CostModel from './components/cost-model/CostModel';
+import React, { useState, useContext } from 'react';
+import { Route } from 'react-router-dom';
 import CostModelView from './components/cost-model/CostModelView';
-import LoadCostModel from './components/cost-model/LoadCostModel';
 import LoadedCostModels from './components/cost-model/LoadedCostModels';
-import SaveCostModel from './components/cost-model/SaveCostModel';
 import EC2Config from './components/EC2/EC2Config';
-import EC2List from './components/EC2/EC2List';
+import S3Config from './components/S3/S3Config';
 import Header from './components/Layout/Header';
-import Card from './components/UI/Card';
-import Modal from './components/UI/Modal';
-import useHttp from './hooks/use-http';
+import Sidebar from './components/Layout/Sidebar';
 import CostModelContext from './store/cost-model-context';
 import CostModelProvider from './store/CostModelProvider';
+import CostSummary from './components/cost-model/CostSummary';
+import PlaceHolder from './components/General/Placeholder';
+import Home from './components/General/Home';
 
 function App() {
   const costModelCtx = useContext(CostModelContext);
   const { services } = costModelCtx;
-
-  const addEC2Handler = (region, os, instanceType, price) => {
-    // passing function will automatically get previous state snapshot
-    // setEc2List((prevEC2List) => {
-    //   return [
-    //     ...prevEC2List,
-    //     { id: Math.random().toString(), region: region, os: os, instanceType: instanceType, price: price }];
-    // }
-    // costModeltCtx.addService({
-    //   id: Math.random().toString(), region: region, os: os, instanceType: instanceType, price: price
-    console.log(costModelCtx);
-  };
-  
 
   const [showCostModelView, setShowCostModelView] = useState(false);
   const [loadCostModels, setLoadedCostModels] = useState(false);
@@ -56,10 +42,24 @@ function App() {
     <CostModelProvider>
       {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
       {loadCostModels && <LoadedCostModels onClose={hideLoadedCostModelHandler} />}
-      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler}/>
-        <main>
-          <EC2Config onAddEC2={addEC2Handler} />
-        </main>
+      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler} />
+      <main>
+        <Sidebar />
+        <Route path={["/", "/save", "/view", "/diagram", "/login"]} exact component={Home} />
+        <Route path={["/rds", "/elb", "/cloudwatch"]}>
+          <PlaceHolder />
+        </Route>
+        <Route path="/ec2">
+          <EC2Config />
+        </Route>
+        <Route path="/s3">
+          <S3Config />
+        </Route>
+        <CostSummary />
+        <Route path="/load">
+          <LoadedCostModels onClose={hideLoadedCostModelHandler} />
+        </Route>
+      </main>
     </CostModelProvider>
   );
 }

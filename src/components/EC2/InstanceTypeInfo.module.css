@@ -1,11 +1,14 @@
+.container {
+  border-radius: 5px;
+  border-style:ridge;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(2, 10rem);
+  grid-auto-rows: 5rem;
+}
+
 .info {
-    padding: 1rem;
-    width: 50%;
-    max-width: 20rem;
-    display: inline-block;
-  }
+    padding: 1rem; 
+    font-size: 15px;
+}
   
-  .info label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }

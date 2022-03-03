@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
 //import mealsImage from '../../assets/meals.jpg';
 import classes from './Header.module.css';
@@ -10,12 +11,12 @@ const Header = props => {
         <Fragment>
             <header className={classes.header}>
                 <h1>Cost Model Tool</h1>
-                <HeaderLoadButton onClick={props.onLoadCostModels}/>
-                <HeaderButton onClick={props.onShowCostModel}/>
+                <NavLink activeClassName={classes.active} to="/save">Save</NavLink>
+                <NavLink activeClassName={classes.active} to="/load">Load</NavLink>
+                <NavLink activeClassName={classes.active} to="/view">View</NavLink>
+                <NavLink activeClassName={classes.active} to="/diagram">Diagram</NavLink>
+                <NavLink activeClassName={classes.active} to="/login">Login</NavLink>
             </header>
-            {/* <div className={classes['main-image']}>
-                <img src={mealsImage} alt="A table full of delicious food!"/>
-            </div> */}
         </Fragment>
     );
 };
