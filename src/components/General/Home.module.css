@@ -1,8 +1,9 @@
 .home {
-    margin-left: 22rem;
     padding: 1rem;
-    width: 50%;
+    width: 45rem;
     height: 20rem;
+    margin-left: 10rem;
+    margin-right: 11rem;
 }
 
 @media only screen and (max-width: 720px) {

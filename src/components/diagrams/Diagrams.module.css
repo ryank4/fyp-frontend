@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 10rem;
+}
+
+
+.content {
+    margin-left: 5rem;
+    width: 40rem;
+    height: 50rem;
+    overflow: scroll;
+}
+
+.diagram {
+    width: 100%;
+    height: auto;
+}
+
+.info {
+    margin-top: 0;
+    margin-left: 30rem;
+}
+
+button {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 34rem;
+    width: 7rem;
+    height: 2.5rem;
+    text-decoration: none;
+    background-color: teal;
+    color: white;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid teal;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.loader {
+    width: 5rem;
+    height: 5rem;
+    margin: 12rem;
+}
+
+a {
+    cursor: pointer;
+}
+
+.error {
+    margin-top: 10rem;
+    margin-left: 15rem;
+    color: red;
+}

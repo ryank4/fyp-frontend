@@ -11,6 +11,10 @@ import CostModelProvider from './store/CostModelProvider';
 import CostSummary from './components/cost-model/CostSummary';
 import PlaceHolder from './components/General/Placeholder';
 import Home from './components/General/Home';
+import Diagrams from './components/diagrams/Diagrams';
+import { Switch } from 'react-router-dom';
+import ConfigLayout from './components/Layout/ConfigLayout';
+import Layout from './components/Layout/Layout';
 
 function App() {
   const costModelCtx = useContext(CostModelContext);
@@ -40,26 +44,33 @@ function App() {
 
   return (
     <CostModelProvider>
-      {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
+      {/* {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
       {loadCostModels && <LoadedCostModels onClose={hideLoadedCostModelHandler} />}
-      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler} />
-      <main>
-        <Sidebar />
-        <Route path={["/", "/save", "/view", "/diagram", "/login"]} exact component={Home} />
-        <Route path={["/rds", "/elb", "/cloudwatch"]}>
-          <PlaceHolder />
-        </Route>
-        <Route path="/ec2">
-          <EC2Config />
-        </Route>
-        <Route path="/s3">
-          <S3Config />
-        </Route>
-        <CostSummary />
-        <Route path="/load">
-          <LoadedCostModels onClose={hideLoadedCostModelHandler} />
-        </Route>
-      </main>
+      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler} /> */}
+      {/* <Route path="/load">
+        <LoadedCostModels onClose={hideLoadedCostModelHandler} />
+      </Route> */}
+      <Layout>
+        <Switch>
+          <Route path="/diagram" exact>
+            <Diagrams />
+          </Route>
+          <ConfigLayout>
+            <Route path={["/rds", "/elb", "/cloudwatch"]} exact>
+              <PlaceHolder />
+            </Route>
+            <Route path="/ec2">
+              <EC2Config />
+            </Route>
+            <Route path="/s3">
+              <S3Config />
+            </Route>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+          </ConfigLayout>
+        </Switch>
+      </Layout>
     </CostModelProvider>
   );
 }

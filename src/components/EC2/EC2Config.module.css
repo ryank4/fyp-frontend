@@ -1,8 +1,9 @@
 .container {
-    margin-left: 22rem;
     padding: 1rem;
-    width: 50%;
+    width: 45rem;
     height: 40rem;
+    margin-left: 10rem;
+    margin-right: 11rem;
     overflow: scroll;
   }
   
