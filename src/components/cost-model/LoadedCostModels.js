@@ -20,16 +20,11 @@ const LoadedCostModels = (props) => {
 
     const costModelData = useCallback((obj) => {
         setCostModel(obj);
-        // const data = [];
-        //     for (const key in obj.serviceDetails) {
-        //         data.push({index: key, value: obj[key]});
-        // }
         setLoaded(true);
-
         costModeltCtx.clearCostModel();
         costModeltCtx.loadCostModel(obj);
     });
-    
+
 
 
     console.log(costModeltCtx);
@@ -70,12 +65,10 @@ const LoadedCostModels = (props) => {
             const data = [];
             for (const key in obj) {
                 data.push(
-                    <ul className={classes['cost-models']}>
-                        <li>
-                            <h3>{obj[key]}</h3>
-                            <Button onClick={onLoadCostModelHandler.bind(null, obj[key])}>Load</Button>
-                        </li>
-                    </ul>
+                    <li>
+                        <h3>{obj[key]}</h3>
+                        <Button onClick={onLoadCostModelHandler.bind(null, obj[key])}>Load</Button>
+                    </li>
                 );
             }
             setLoadedCostModels(data);
@@ -93,7 +86,7 @@ const LoadedCostModels = (props) => {
 
     console.log(loadedCostModels);
 
-    const displayData = isLoading ? <p>Loading...</p> : loadedCostModels
+    const displayData = isLoading ? <p>Loading...</p> : <ul className={classes['cost-models']}>{loadedCostModels}</ul>
 
     return (
         <Fragment>

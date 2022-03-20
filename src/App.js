@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { Route } from 'react-router-dom';
 import CostModelView from './components/cost-model/CostModelView';
 import LoadedCostModels from './components/cost-model/LoadedCostModels';
@@ -15,6 +15,10 @@ import Diagrams from './components/diagrams/Diagrams';
 import { Switch } from 'react-router-dom';
 import ConfigLayout from './components/Layout/ConfigLayout';
 import Layout from './components/Layout/Layout';
+import SaveCostModel from './components/cost-model/SaveCostModel';
+import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import ELBConfig from './components/ELB/ELBConfig';
 
 function App() {
   const costModelCtx = useContext(CostModelContext);
@@ -23,12 +27,15 @@ function App() {
   const [showCostModelView, setShowCostModelView] = useState(false);
   const [loadCostModels, setLoadedCostModels] = useState(false);
 
+  const history = useHistory();
+
   const showCostModelViewHandler = () => {
     setShowCostModelView(true);
   };
 
   const hideCostModelViewHandler = () => {
     setShowCostModelView(false);
+    history.push("/");
   };
 
   const showLoadedCostModelHandler = () => {
@@ -37,26 +44,27 @@ function App() {
 
   const hideLoadedCostModelHandler = () => {
     setLoadedCostModels(false);
+    history.push("/");
   };
 
-  console.log(services);
   console.log(loadCostModels);
 
   return (
     <CostModelProvider>
-      {/* {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
+      {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
       {loadCostModels && <LoadedCostModels onClose={hideLoadedCostModelHandler} />}
-      <Header onShowCostModel={showCostModelViewHandler} onLoadCostModels={showLoadedCostModelHandler} /> */}
-      {/* <Route path="/load">
-        <LoadedCostModels onClose={hideLoadedCostModelHandler} />
-      </Route> */}
+      <Header />
       <Layout>
         <Switch>
+          <Route path="/save">
+            {showCostModelViewHandler}
+          </Route>
+          <Route path="/load" render={showLoadedCostModelHandler} />
           <Route path="/diagram" exact>
             <Diagrams />
           </Route>
           <ConfigLayout>
-            <Route path={["/rds", "/elb", "/cloudwatch"]} exact>
+            <Route path={["/rds", "/cloudwatch"]} exact>
               <PlaceHolder />
             </Route>
             <Route path="/ec2">
@@ -64,6 +72,9 @@ function App() {
             </Route>
             <Route path="/s3">
               <S3Config />
+            </Route>
+            <Route path="/elb">
+              <ELBConfig />
             </Route>
             <Route path="/" exact>
               <Home />
