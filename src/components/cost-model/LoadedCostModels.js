@@ -80,10 +80,6 @@ const LoadedCostModels = (props) => {
     }, [loadCostModels]);
 
 
-    const errorHandler = () => {
-        error = false;
-    };
-
     console.log(loadedCostModels);
 
     const displayData = isLoading ? <p>Loading...</p> : <ul className={classes['cost-models']}>{loadedCostModels}</ul>
@@ -91,7 +87,7 @@ const LoadedCostModels = (props) => {
     return (
         <Fragment>
             {!loaded && <GeneralModel title="Saved Cost Models" message={displayData} onConfirm={props.onClose} />}
-            {error && <ErrorModal title={"Error"} message={error} onConfirm={errorHandler} />}
+            {error && <ErrorModal title={"Error"} message={error} onConfirm={props.onClose} />}
             {loaded && <GeneralModel title={costModel.name} message="Load Successful" onConfirm={props.onClose} />}
         </Fragment>
     );

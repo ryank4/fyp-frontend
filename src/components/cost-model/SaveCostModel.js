@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Fragment } from "react/cjs/react.production.min";
 import useHttp from "../../hooks/use-http";
 import Button from "../UI/Button";
+import classes from "./SaveCostModel.module.css";
 
 const SaveCostModel = (props) => {
   const { isLoading, error, sendRequest: saveCostModel } = useHttp();
@@ -25,10 +24,10 @@ const SaveCostModel = (props) => {
 
   console.log(props.valid);
   return (
-    <Fragment>
-      <Button disabled={!props.valid} onClick={onSaveHandler}>Confirm</Button>
+    <div className={classes.content}>
+      <Button disabled={!props.valid} onClick={onSaveHandler}>Save</Button>
       <Button onClick={props.onClose}>Cancel</Button>
-    </Fragment>
+    </div>
 
   );
 };

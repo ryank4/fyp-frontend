@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import Card from "../UI/Card";
 import classes from './EC2Config.module.css'
 import { Fragment } from "react";
-import ConfigItem from "./ConfigItem";
+import ConfigItem from "../General/ConfigItem";
 import useHttp from "../../hooks/use-http";
 import InstanceTypeInfo from "./InstanceTypeInfo";
 import CostModelContext from "../../store/cost-model-context";
@@ -92,7 +92,7 @@ const EC2Config = props => {
         console.log(costModeltCtx.services);
     };
 
-    const displayPrice = price.price === 0 ? 'Not Available' : '$' + price.price
+    const displayPrice = price.price === 0 ? 'Not Available' : '$' + price.price?.toFixed(2)
     const disableButton = price.price === 0
 
     return (

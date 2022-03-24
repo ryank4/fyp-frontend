@@ -1,6 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import classes from './ConfigItem.module.css'
-import ErrorModal from "../UI/ErrorModal";
 import { Fragment } from "react";
 import useHttp from "../../hooks/use-http";
 
