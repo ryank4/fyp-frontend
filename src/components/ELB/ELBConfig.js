@@ -5,7 +5,7 @@ import classes from './ELB.module.css'
 import { Fragment } from "react";
 import useHttp from "../../hooks/use-http";
 import CostModelContext from "../../store/cost-model-context";
-import ConfigItem from "../EC2/ConfigItem";
+import ConfigItem from "../General/ConfigItem";
 
 
 const ELBConfig = props => {

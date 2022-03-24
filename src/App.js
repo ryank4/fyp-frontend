@@ -1,24 +1,21 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { Route } from 'react-router-dom';
-import CostModelView from './components/cost-model/CostModelView';
 import LoadedCostModels from './components/cost-model/LoadedCostModels';
 import EC2Config from './components/EC2/EC2Config';
 import S3Config from './components/S3/S3Config';
 import Header from './components/Layout/Header';
-import Sidebar from './components/Layout/Sidebar';
 import CostModelContext from './store/cost-model-context';
 import CostModelProvider from './store/CostModelProvider';
-import CostSummary from './components/cost-model/CostSummary';
-import PlaceHolder from './components/General/Placeholder';
 import Home from './components/General/Home';
 import Diagrams from './components/diagrams/Diagrams';
 import { Switch } from 'react-router-dom';
 import ConfigLayout from './components/Layout/ConfigLayout';
 import Layout from './components/Layout/Layout';
-import SaveCostModel from './components/cost-model/SaveCostModel';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import ELBConfig from './components/ELB/ELBConfig';
+import RDSConfig from './components/RDS/RDSConfig';
+import CloudWatch from './components/CloudWatch/CloudWatch';
+import CostModelSaveView from './components/cost-model/CostModelSaveView';
 
 function App() {
   const costModelCtx = useContext(CostModelContext);
@@ -51,7 +48,7 @@ function App() {
 
   return (
     <CostModelProvider>
-      {showCostModelView && <CostModelView onClose={hideCostModelViewHandler} />}
+      {showCostModelView && <CostModelSaveView onClose={hideCostModelViewHandler} />}
       {loadCostModels && <LoadedCostModels onClose={hideLoadedCostModelHandler} />}
       <Header />
       <Layout>
@@ -64,9 +61,9 @@ function App() {
             <Diagrams />
           </Route>
           <ConfigLayout>
-            <Route path={["/rds", "/cloudwatch"]} exact>
+            {/* <Route path={["/cloudwatch"]} exact>
               <PlaceHolder />
-            </Route>
+            </Route> */}
             <Route path="/ec2">
               <EC2Config />
             </Route>
@@ -75,6 +72,12 @@ function App() {
             </Route>
             <Route path="/elb">
               <ELBConfig />
+            </Route>
+            <Route path="/rds">
+              <RDSConfig />
+            </Route>
+            <Route path="/cloudwatch">
+              <CloudWatch />
             </Route>
             <Route path="/" exact>
               <Home />

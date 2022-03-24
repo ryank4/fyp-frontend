@@ -12,4 +12,14 @@
   h4 {
     border-bottom: 2px solid #df8908;
   }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+
+
+
   

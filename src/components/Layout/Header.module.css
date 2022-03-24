@@ -14,8 +14,9 @@
     z-index: 10;
   }
 
-  .title:hover {
+  .header .title:hover {
      border-bottom: none;
+     padding-bottom: 0rem;
   }
 
   .header a {
@@ -28,7 +29,7 @@
   .header a:active,
   .header a.active {
     color: white;
-
+    padding-bottom: 0.25rem;
     border-bottom: 4px solid white;
   }
 
