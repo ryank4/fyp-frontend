@@ -1,0 +1,24 @@
+.diagrams {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .diagrams li {
+    flex: 1 1 auto;
+    border-bottom: 2px solid teal;
+  }
+  
+  .diagrams li h3 {
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+  }
+  
+  .diagrams li Button {
+    margin-left: 30rem;
+  }

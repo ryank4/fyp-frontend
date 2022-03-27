@@ -9,8 +9,7 @@
 .content {
     margin-left: 5rem;
     width: 40rem;
-    height: 50rem;
-    overflow: scroll;
+    height: 30rem;
 }
 
 .diagram {
@@ -23,12 +22,19 @@
     margin-left: 30rem;
 }
 
+.diagramActions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10rem;
+}
+
 button {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    margin-left: 34rem;
     width: 7rem;
     height: 2.5rem;
+    /* margin-left: 34rem; */
+    margin-right: 5rem;
     text-decoration: none;
     background-color: teal;
     color: white;
