@@ -9,6 +9,7 @@ const SaveCostModel = (props) => {
     props.onSaveResponse(res.response);
   };
 
+  console.log(props.costModel);
 
   const onSaveHandler = () => {
     saveCostModel({

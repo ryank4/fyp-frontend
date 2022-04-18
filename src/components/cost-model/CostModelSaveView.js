@@ -17,34 +17,20 @@ const CostModelSaveView = props => {
 
     const costModel = [];
 
-    /*  let content = [];
- 
-     const costModelRemoveHandler = id => {
-         costModelCtx.removeService(id)
-     };
- 
-     for (const key in services) {
-         content.push(<h4>{services[key].service}</h4>)
-         for (const k in services[key]) {
-             content.push(k !== 'id' && k !== 'service' ? <ul>
-                 <li id={services[key].id}>{k + ": " + services[key][k]}</li>
-             </ul> : '')
-             costModel.push({ index: k, value: services[key][k] });
-         }
-         content.push(<button className={viewClasses.button} onClick={costModelRemoveHandler.bind(null, services[key].id)}>Remove</button>)
-     }
-     costModel.push({ index: 'name', value: costModelCtx.name })
-     content.push(<h4>Total Monthly Cost: ${totalCost.toFixed(2)}</h4>)
-     console.log(costModel); */
 
+    for (const key in services) {
+        for (const k in services[key]) {
+            costModel.push({ index: k, value: services[key][k] });
+        }
+    }
+    costModel.push({ index: 'name', value: costModelCtx.name })
+    costModel.push({ index: 'total cost', value: costModelCtx.totalCost })
 
-    const saveHandler = () => {
-        setIsSaving(true);
-    };
+    console.log(costModel);
 
     const onSaveValidityHandler = (value) => {
         setValid(value);
-        
+
     };
 
     const onSaveComplete = (res) => {

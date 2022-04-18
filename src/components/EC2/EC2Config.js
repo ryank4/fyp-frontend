@@ -82,6 +82,7 @@ const EC2Config = props => {
             id: Math.random().toString(),
             service: 'EC2',
             region: region,
+            os: os,
             instanceType: instanceType,
             dataIntra: dataIntra,
             dataOutTo: dataOutTo,

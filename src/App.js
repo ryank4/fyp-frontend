@@ -16,6 +16,7 @@ import ELBConfig from './components/ELB/ELBConfig';
 import RDSConfig from './components/RDS/RDSConfig';
 import CloudWatch from './components/CloudWatch/CloudWatch';
 import CostModelSaveView from './components/cost-model/CostModelSaveView';
+import FullView from './components/cost-model/FullView';
 
 function App() {
   const costModelCtx = useContext(CostModelContext);
@@ -59,6 +60,9 @@ function App() {
           <Route path="/load" render={showLoadedCostModelHandler} />
           <Route path="/diagram" exact>
             <Diagrams />
+          </Route>
+          <Route path="/view">
+            <FullView />
           </Route>
           <ConfigLayout>
             {/* <Route path={["/cloudwatch"]} exact>

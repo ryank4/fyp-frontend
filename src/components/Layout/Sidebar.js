@@ -56,7 +56,7 @@ const Sidebar = () => {
                                 onMouseLeave={isNotActiveHandler}
                                 icon={<EC2Icon />}>
                                 EC2
-                                <Link to="/ec2"></Link>
+                                <Link to="/ec2" id="ec2Link"></Link>
                             </MenuItem>
                             <MenuItem
                                 onMouseEnter={isActiveHandler.bind(null, "S3")}
@@ -64,7 +64,7 @@ const Sidebar = () => {
                                 onMouseLeave={isNotActiveHandler}
                                 icon={<S3Icon />}>
                                 S3
-                                <Link to="/s3"></Link>
+                                <Link to="/s3" id="s3Link"></Link>
                             </MenuItem>
                             <MenuItem
                                 onMouseEnter={isActiveHandler.bind(null, "ELB")}
@@ -72,7 +72,7 @@ const Sidebar = () => {
                                 onMouseLeave={isNotActiveHandler}
                                 icon={<ELBIcon />}>
                                 ELB
-                                <Link to="/elb"></Link>
+                                <Link to="/elb" id="elbLink"></Link>
                             </MenuItem>
                             <MenuItem
                                 onMouseEnter={isActiveHandler.bind(null, "RDS")}
@@ -80,7 +80,7 @@ const Sidebar = () => {
                                 onMouseLeave={isNotActiveHandler}
                                 icon={<RDSIcon />}>
                                 RDS
-                                <Link to="/rds"></Link>
+                                <Link to="/rds" id="rdsLink"></Link>
                             </MenuItem>
                             <MenuItem
                                 onMouseEnter={isActiveHandler.bind(null, "CloudWatch")}
@@ -88,7 +88,7 @@ const Sidebar = () => {
                                 onMouseLeave={isNotActiveHandler}
                                 icon={<CloudWatchIcon />}>
                                 CloudWatch
-                                <Link to="/cloudwatch"></Link>
+                                <Link to="/cloudwatch" id="cloudwatchLink"></Link>
                             </MenuItem>
                         </Menu>
                     </SidebarContent>

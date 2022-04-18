@@ -38,7 +38,7 @@ const InstanceTypeInfo = props => {
     console.log(data.map((d) => d.index + ":" + d.value));
 
     return (
-        <div className={classes.container}>
+        <div data-testid="info" className={classes.container}>
             {!isLoading ?
                 data.map((d) => {
                     return <span className={classes.info} key={d.index}><label>{d.index}</label>{d.value}</span>
