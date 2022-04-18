@@ -11,7 +11,7 @@ const Header = props => {
                 <NavLink activeClassName={classes.active} to="/load">Load</NavLink>
                 <NavLink activeClassName={classes.active} to="/view">View</NavLink>
                 <NavLink activeClassName={classes.active} to="/diagram">Diagram</NavLink>
-                <NavLink activeClassName={classes.active} to="/login">Login</NavLink>
+                {/* <NavLink activeClassName={classes.active} to="/login">Login</NavLink> */}
             </header>
         </Fragment>
     );

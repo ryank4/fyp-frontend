@@ -3,4 +3,5 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     margin-top: 7rem;
+    overflow: auto;
   }
