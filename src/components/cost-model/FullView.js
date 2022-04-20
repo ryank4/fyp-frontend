@@ -6,92 +6,80 @@ import CostModelContext from '../../store/cost-model-context';
 function FullView() {
 
     const costModelCtx = useContext(CostModelContext);
-    const { name, services, totalCost } = costModelCtx;
-    let content = [];
+    const { services, totalCost } = costModelCtx;
 
     const costModelRemoveHandler = id => {
         costModelCtx.removeService(id)
     };
 
     let data = []
+    let removeButton = ""
+
+    // const removeButton = <button>Remove</button>
     for (const key in services) {
+        let configDetails = []
+        for (const k in services[key]) {
+            if (k !== 'id' && k !== 'service' && k != 'price' && k !== 'name' && k !== 'region') {
+                console.log(k, services[key][k])
+                configDetails.push(k + ": " + services[key][k] + ",\n");
+                removeButton = <button onClick={costModelRemoveHandler.bind(null, services[key].id)}>Remove</button>
+            }
+        }
         data.push(
             {
                 name: services[key].service,
                 region: services[key].region,
                 price: services[key].price,
+                details: configDetails,
+                actions: removeButton
             }
         )
-        for (const k in services[key]) {
-            if (k !== 'id' && k !== 'service' && k != 'price' && k !== 'name' && k !== 'region') {
-                console.log(k, services[key][k])
-                data.push({
-                    details: [
-                        k + ": " +  services[key][k]
-                    ]
-                })
-            }
-        }
     }
 
+    data.push({ total: totalCost.toFixed(2) });
 
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Name',
+                accessor: 'name', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Region',
+                accessor: 'region',
+            },
+            {
+                Header: 'Config details',
+                accessor: 'details',
+            },
+            {
+                Header: 'Price',
+                accessor: 'price',
+            },
+            {
+                Header: 'Actions',
+                accessor: 'actions',
+            },
+            {
+                Header: 'Total',
+                accessor: 'total',
+            },
+        ],
+        []
+    )
 
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    } = useTable({ columns, data })
 
-        // console.log(content);
-        // const data = React.useMemo(
-        //     () => [
+    const noContent = <p style={{ marginTop: '10rem', marginLeft: '30em' }}>No content to display. Add services to your cost model using the config components</p>
 
-        //         {
-        //             name: 'Hello',
-        //             col2: 'World',
-        //         },
-        //         {
-        //             col1: 'react-table',
-        //             col2: 'rocks',
-        //         },
-        //         {
-        //             col1: 'whatever',
-        //             col2: 'you want',
-        //         },
-        //     ],
-        //     []
-        // )
-
-        const columns = React.useMemo(
-            () => [
-                {
-                    Header: 'Name',
-                    accessor: 'name', // accessor is the "key" in the data
-                },
-                {
-                    Header: 'Region',
-                    accessor: 'region',
-                },
-                {
-                    Header: 'Config details',
-                    accessor: 'details',
-                },
-                {
-                    Header: 'Price',
-                    accessor: 'price',
-                },
-                {
-                    Header: 'Actions',
-                    accessor: 'actions',
-                },
-            ],
-            []
-        )
-
-        const {
-            getTableProps,
-            getTableBodyProps,
-            headerGroups,
-            rows,
-            prepareRow,
-        } = useTable({ columns, data })
-
-        return (
+    const tableContent = (
+        <div style={{ height: '38rem', width: '80rem', marginTop: '2rem', marginLeft: '7.5rem'}}>
             <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
                 <thead>
                     {headerGroups.map(headerGroup => (
@@ -136,7 +124,15 @@ function FullView() {
                     })}
                 </tbody>
             </table>
-        )
-    }
+        </div>
+    )
 
-    export default FullView;
+    console.log(data);
+    const displayContent = data.length === 0 || totalCost <= 0 ? noContent : tableContent;
+
+    return (
+        displayContent
+    )
+}
+
+export default FullView;
