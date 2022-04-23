@@ -14,7 +14,7 @@ const costModelReducer = (state, action) => {
         // concat returns new array - better than editing old array in memory
         // const updatedItems = state.items.concat(action.item);
         const updatedTotalCost = +state.totalCost + action.service.price;
-        const existingCostModelServiceIndex = state.services.findIndex(service => service.id === action.service.id);
+        const existingCostModelServiceIndex = state.services.findIndex(service => service._id === action.service._id);
         const existingCostModelService = state.services[existingCostModelServiceIndex];
 
         let updatedServices;
@@ -38,7 +38,7 @@ const costModelReducer = (state, action) => {
     }
 
     if (action.type === 'REMOVE_SERVICE'){
-        const existingServieIndex = state.services.findIndex(service => service.id === action.id); 
+        const existingServieIndex = state.services.findIndex(service => service._id === action._id); 
         const existingService = state.services[existingServieIndex];
         const updatedTotalcost = +state.totalCost - existingService.price;
         let updatedServices;
@@ -52,7 +52,7 @@ const costModelReducer = (state, action) => {
         //     updatedServices[existingServieIndex] = updatedService;
         // }
         
-        updatedServices = state.services.filter(service => service.id !== action.id);
+        updatedServices = state.services.filter(service => service._id !== action._id);
 
         return {
             services: updatedServices,
@@ -103,8 +103,8 @@ const CostModelProvider = props => {
         dispatchCostModelAction({ type: 'ADD_SERVICE', service: service });
     };
 
-    const removeServiceHandler = (id) => {
-        dispatchCostModelAction({ type: 'REMOVE_SERVICE', id: id });
+    const removeServiceHandler = (_id) => {
+        dispatchCostModelAction({ type: 'REMOVE_SERVICE', _id: _id });
     };
 
     const addNameHandler = (name) => {

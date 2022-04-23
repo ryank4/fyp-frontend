@@ -95,7 +95,7 @@ const RDSConfig = props => {
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
-            id: Math.random().toString(),
+            _id: Math.random().toString(),
             service: 'RDS',
             region,
             instanceType,

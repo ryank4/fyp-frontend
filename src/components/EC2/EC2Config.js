@@ -79,7 +79,7 @@ const EC2Config = props => {
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
-            id: Math.random().toString(),
+            _id: Math.random().toString(),
             service: 'EC2',
             region: region,
             os: os,

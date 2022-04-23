@@ -19,10 +19,10 @@ function FullView() {
     for (const key in services) {
         let configDetails = []
         for (const k in services[key]) {
-            if (k !== 'id' && k !== 'service' && k != 'price' && k !== 'name' && k !== 'region') {
+            if (k !== '_id' && k !== 'service' && k != 'price' && k !== 'name' && k !== 'region' && k != 'total cost') {
                 console.log(k, services[key][k])
                 configDetails.push(k + ": " + services[key][k] + ",\n");
-                removeButton = <button onClick={costModelRemoveHandler.bind(null, services[key].id)}>Remove</button>
+                removeButton = <button onClick={costModelRemoveHandler.bind(null, services[key]._id)}>Remove</button>
             }
         }
         data.push(

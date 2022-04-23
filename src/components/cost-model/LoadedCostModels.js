@@ -34,7 +34,7 @@ const LoadedCostModels = (props) => {
         costModelContent.push(<h4>{costModel.serviceDetails[key].service}</h4>)
         for (const k in costModel.serviceDetails[key]) {
             costModelContent.push(k !== 'id' && k !== 'service' ? <ul>
-                <li id={costModel.serviceDetails[key].id}>{k + ": " + costModel.serviceDetails[key][k]}</li>
+                <li id={costModel.serviceDetails[key]._id}>{k + ": " + costModel.serviceDetails[key][k]}</li>
             </ul> : '')
         }
     }
