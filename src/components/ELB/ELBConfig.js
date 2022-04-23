@@ -120,7 +120,7 @@ const ELBConfig = props => {
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
-            id: Math.random().toString(),
+            _id: Math.random().toString(),
             service: 'ELB',
             region, tcpProcessedBytes, tcpNewConnections, tcpAvgConnectionDuration, 
             udpProcessedBytes, udpNewConnections, udpAvgConnectionDuration,

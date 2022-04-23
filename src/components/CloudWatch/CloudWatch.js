@@ -114,7 +114,7 @@ const CloudWatch = props => {
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
-            id: Math.random().toString(),
+            _id: Math.random().toString(),
             service: 'CloudWatch',
             region, numMetrics, getMetricData, getMetricWidgetImage, otherMetrics, standardLogs, logsDeliveredToCloudwatch,
             logsDeliveredToS3, logStorage, parquetConversion,

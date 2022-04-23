@@ -95,7 +95,7 @@ const S3Config = props => {
 
     const addServiceHandler = () => {
         costModeltCtx.addService({
-            id: Math.random().toString(),
+            _id: Math.random().toString(),
             service: 'S3',
             region, region,
             storage: storage,
